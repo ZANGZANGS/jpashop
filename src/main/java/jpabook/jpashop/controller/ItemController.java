@@ -30,14 +30,14 @@ public class ItemController {
 
     @PostMapping("/items/new")
     public String create(@Valid BookForm form) {
-//        Book book = new Book();
-//        book.setName(form.getName());
-//        book.setPrice(form.getPrice());
-//        book.setStockQuantity(form.getStockQuantity());
-//        book.setAuthor(form.getAuthor());
-//        book.setIsbn(form.getIsbn());
+        Book book = new Book();
+        book.setName(form.getName());
+        book.setPrice(form.getPrice());
+        book.setStockQuantity(form.getStockQuantity());
+        book.setAuthor(form.getAuthor());
+        book.setIsbn(form.getIsbn());
 
-        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
+        itemService.saveItem(book);
         return "redirect:/";
     }
 
@@ -71,7 +71,7 @@ public class ItemController {
      * 상품 수정
      */
     @PostMapping(value = "/items/{itemId}/edit")
-    public String updateItem(@ModelAttribute BookForm form) {
+    public String updateItem(@ModelAttribute BookForm form, @PathVariable String itemId) {
         Book book = new Book();
 
 //        book.setId(form.getId());
@@ -81,9 +81,8 @@ public class ItemController {
 //        book.setAuthor(form.getAuthor());
 //        book.setIsbn(form.getIsbn());
 
-//        itemService.
+        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
 
-        itemService.saveItem(book);
         return "redirect:/items";
     }
 
