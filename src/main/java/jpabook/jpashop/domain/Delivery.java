@@ -16,16 +16,11 @@ public class Delivery {
     private Long id;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
 
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "zipcode")
-    private String zipcode;
+    @Embedded
+    private Address address;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Orders orders;

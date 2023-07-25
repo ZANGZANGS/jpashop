@@ -1,4 +1,4 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.domain.item;
 
 
 import lombok.Getter;
@@ -12,12 +12,12 @@ import javax.persistence.Entity;
 @Entity
 @NoArgsConstructor
 @Getter @Setter
-@DiscriminatorValue(value = "A")
-public class Album extends Item{
+@DiscriminatorValue(value = "M")
+public class Movie extends Item{
 
-    @Column(name = "artist")
-    private String artist;
+    @Column(name = "director")
+    private String director;
 
-    @Column(name = "etc")
-    private String etc;
+    @Column(name = "actor")
+    private String actor;
 }

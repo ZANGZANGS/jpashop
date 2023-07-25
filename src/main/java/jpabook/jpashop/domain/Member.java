@@ -20,14 +20,8 @@ public class Member {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "zipcode")
-    private String zipcode;
+    @Embedded
+    private Address address;
 
     @OneToMany(mappedBy = "member")
     private List<Orders> orders = new ArrayList<>();
