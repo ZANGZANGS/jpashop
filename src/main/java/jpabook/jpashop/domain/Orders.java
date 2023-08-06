@@ -47,6 +47,6 @@ public class Orders {
     public void addOrderItem(OrderItem orderItem){
         orderItems.add(orderItem);
         orderItem.setOrders(this);
-    };
+    }
 
 }
