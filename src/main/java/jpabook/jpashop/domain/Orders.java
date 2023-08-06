@@ -22,18 +22,31 @@ public class Orders {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    @Column(name = "orderdate")
-    private LocalDateTime orderdate;
+    @Column(name = "order_date")
+    private LocalDateTime orderDate;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status; //주문상태
+
+    /**
+     * 연관관계 편의 메서드
+     */
+    public void setMember(Member member){
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+        orderItem.setOrders(this);
+    };
 
 }
