@@ -25,9 +25,30 @@ public class OrderItem {
     private Orders orders;
 
     @Column(name = "order_price")
-    private Long orderPrice;
+    private int orderPrice;
 
     @Column(name = "count")
     private int count;
 
+    //==생성 메서드==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+        return orderItem;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        getItem().addStock(count);//재고 수량을 복원
+    }
+
+    /**
+     * 조회 로직
+     * @return
+     */
+    public int getTotalPrice(){
+        return getOrderPrice() * count;
+    }
 }
