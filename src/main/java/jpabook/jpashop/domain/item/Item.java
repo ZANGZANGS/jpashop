@@ -19,13 +19,13 @@ public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "item_id")
-    private String id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "price")
-    private long price;
+    private int price;
 
     @Column(name = "stockQuantity")
     private int stockQuantity;

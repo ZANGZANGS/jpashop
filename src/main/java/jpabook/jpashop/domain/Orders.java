@@ -55,10 +55,12 @@ public class Orders {
         Orders order = new Orders();
         order.setMember(member);
         order.setDelivery(delivery);
+
         for (OrderItem orderItem: orderItems) {
             order.addOrderItem(orderItem);
         }
         order.setOrderDate(LocalDateTime.now());
+        order.setStatus(OrderStatus.ORDER);
         return order;
     }
 
