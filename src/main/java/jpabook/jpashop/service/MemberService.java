@@ -42,4 +42,9 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    @Transactional
+    public void update(Long id, String name){
+        Member member = memberRepository.findOne(id);
+        member.setName(name); //트랜잭션 완료 시점에 <변경감지>
+    }
 }
