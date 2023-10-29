@@ -102,4 +102,22 @@ public class OrderRepository {
                         "join fetch o.delivery ", Order.class
         ).getResultList();
     }
+
+    public List<Order> findAllWithItem(){
+        return em.createQuery(
+                "select distinct o from Order o " + //distinct Order의 객체를 중복 제거
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi ", Order.class
+        )
+                //.setFirstResult(1)
+                //.setMaxResults(100)
+                /**
+                 * fetch 조인시 페이징 처리를 하게 되면 모든 데이터를 메모리에 올린다음 페이징 처리를 하게된다.
+                 * 데이터가 수만건씩 많아진다면, OOM이 발생하여 서버가 죽어버릴 수도 있다.
+                 *
+                 * 추가로 컬렌션에 fetch join은 한개만 가능하다.
+                 **/
+                .getResultList();
+    }
 }

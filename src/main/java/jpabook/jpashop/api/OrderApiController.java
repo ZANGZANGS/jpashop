@@ -90,4 +90,16 @@ public class OrderApiController {
             this.name = orderItem.getItem().getName();
         }
     }
+
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3(){
+        List<Order> orders = orderRepository.findAllWithItem();
+
+        for (Order order : orders) {
+            System.out.println("order ref =" + order +" order Id ="+order.getId());
+        }
+        return orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+    }
 }
