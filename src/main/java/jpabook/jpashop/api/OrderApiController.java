@@ -127,4 +127,11 @@ public class OrderApiController {
             return orderQueryRepository.findOrderQueryDtos();
     }
 
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "10") int limit
+    ){
+        return orderQueryRepository.findAllByDto_optimization();
+    }
 }
