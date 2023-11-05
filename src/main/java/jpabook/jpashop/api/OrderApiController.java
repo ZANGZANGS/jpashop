@@ -11,8 +11,10 @@ import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.repository.order.query.OrderFlatDto;
 import jpabook.jpashop.repository.order.query.OrderQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryRepository;
+import jpabook.jpashop.service.OrderQueryService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,16 +34,11 @@ public class OrderApiController {
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
 
+    private final OrderQueryService orderQueryService;
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1(){
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
-        for (Order order :
-                all) {
-            order.getMember().getName();
-            order.getDelivery().getAddress();
-            List<OrderItem> orderItems = order.getOrderItems();
-            orderItems.stream().forEach(o -> o.getItem().getName());
-        }
+
+        List<Order> all = orderQueryService.ordersServiceV1();
 
         return all;
     }
